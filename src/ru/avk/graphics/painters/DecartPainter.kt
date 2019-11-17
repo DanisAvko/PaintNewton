@@ -15,7 +15,6 @@ class DecartPainter(var plane:CartesianScreenPlane){
         val x0 = Converter.xCrt2Scr(0.0, plane)
         val y0 = Converter.yCrt2Scr(0.0, plane)
         g.color = Color.BLACK
-        g.color = Color.BLACK
         g.drawLine(0, y0, plane.realWidth, y0)
         g.drawLine(x0, 0, x0, plane.realHeight)
     }
