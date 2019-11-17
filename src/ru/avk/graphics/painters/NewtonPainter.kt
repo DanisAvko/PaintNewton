@@ -2,8 +2,8 @@ package ru.avk.graphics.painters
 
 import ru.avk.polynoms.Newton
 import ru.avk.polynoms.Polynom
-import ru.smak.graphics.convertation.CartesianScreenPlane
-import ru.smak.graphics.convertation.Converter
+import ru.avk.graphics.Converter.CartesianScreenPlane
+import ru.avk.graphics.Converter.Converter
 import java.awt.Color
 import java.awt.Graphics
 
@@ -15,7 +15,7 @@ class NewtonPainter(var plane:CartesianScreenPlane,var p:Newton) {
 
     }
     fun PaintPolynom(p:Polynom,g:Graphics){
-        for (i in 0..plane.width) {
+        for (i in 0..plane.realWidth) {
             val y1 = Converter.yCrt2Scr(p.getValue(Converter.xScr2Crt(i, plane)),plane)
             val y2 = Converter.yCrt2Scr(p.getValue(Converter.xScr2Crt(i+1, plane)),plane)
             g.drawLine(i,y1,i+1,y2)

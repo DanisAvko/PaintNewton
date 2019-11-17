@@ -1,6 +1,5 @@
 package ru.avk.graphics.windows
 
-import com.sun.jdi.DoubleType
 import ru.avk.graphics.painters.DecartPainter
 import ru.avk.graphics.painters.NewtonPainter
 import java.awt.Color
@@ -8,14 +7,9 @@ import java.awt.Dimension
 import javax.swing.*
 import ru.avk.graphics.windows.components.MainPanel
 import ru.avk.polynoms.Newton
-import ru.smak.graphics.convertation.CartesianPlane
-import ru.smak.graphics.convertation.CartesianScreenPlane
-import ru.smak.graphics.convertation.Converter
-import kotlin.reflect.jvm.internal.impl.resolve.constants.DoubleValue
+import ru.avk.graphics.Converter.CartesianScreenPlane
+import ru.avk.graphics.Converter.Converter
 import javax.swing.JSpinner
-import javax.swing.event.ChangeEvent
-import javax.swing.event.ChangeListener
-import java.awt.AWTEventMulticaster.getListeners
 import java.awt.event.*
 
 
@@ -246,17 +240,15 @@ class Window: JFrame() {
             }
         )
         cbShowDerivative.addActionListener{
-            if(cbShowDerivative.isSelected) pNewtonPainter.boolPaintDeravative=true
-            else pNewtonPainter.boolPaintDeravative=false
+            if(cbShowDerivative.isSelected) {
+                pNewtonPainter.boolPaintDeravative=true
+            }else{pNewtonPainter.boolPaintDeravative=false }
             mainPanel.repaint()
         }
-
        btnClear.addActionListener {
            pNewton.clear()
            mainPanel.repaint()
        }
-
-
         pack()
         isVisible = true
     }

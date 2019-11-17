@@ -1,7 +1,7 @@
 package ru.avk.graphics.painters
 
-import ru.smak.graphics.convertation.CartesianScreenPlane
-import ru.smak.graphics.convertation.Converter
+import ru.avk.graphics.Converter.CartesianScreenPlane
+import ru.avk.graphics.Converter.Converter
 import java.awt.Color
 import java.awt.Graphics
 
