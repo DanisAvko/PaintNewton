@@ -11,6 +11,7 @@ import ru.avk.graphics.Converter.CartesianScreenPlane
 import ru.avk.graphics.Converter.Converter
 import javax.swing.JSpinner
 import java.awt.event.*
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 
 class Window: JFrame() {
@@ -43,8 +44,8 @@ class Window: JFrame() {
             5.0
         )
 
-        var pNewton=Newton()
-        var pNewtonPainter=NewtonPainter(plane,pNewton)
+        val pNewton=Newton()
+        val pNewtonPainter=NewtonPainter(plane,pNewton)
         mainPanel = MainPanel(pNewtonPainter, DecartPainter(plane))
         mainPanel.background = Color.WHITE
         controlPanel = JPanel()
@@ -58,10 +59,14 @@ class Window: JFrame() {
         lxMax = JLabel("xMax =")
         lyMin = JLabel("yMin =")
         lyMax = JLabel("yMax =")
-        xMin = JSpinner(SpinnerNumberModel(-5.0,-100.0,100.0,0.1))
-        xMax = JSpinner(SpinnerNumberModel(5.0,-100.0,100.0,0.1))
-        yMin = JSpinner(SpinnerNumberModel(-5.0,-100.0,100.0,0.1))
-        yMax = JSpinner(SpinnerNumberModel(5.0,-100.0,100.0,0.1))
+        val xMinMod=SpinnerNumberModel(-5.0,-100.0,100.0,0.1)
+        xMin = JSpinner(xMinMod)
+        val xMaxMod=SpinnerNumberModel(5.0,-100.0,100.0,0.1)
+        xMax = JSpinner(xMaxMod)
+        val yMinMod=SpinnerNumberModel(-5.0,-100.0,100.0,0.1)
+        yMin = JSpinner(yMinMod)
+        val yMaxMod=SpinnerNumberModel(5.0,-100.0,100.0,0.1)
+        yMax = JSpinner(yMaxMod)
 
 
         val gl = GroupLayout(contentPane)
@@ -215,20 +220,32 @@ class Window: JFrame() {
                 .addGap(4)
         )
 
-        xMin.addChangeListener(){
+//        xMin = JSpinner(SpinnerNumberModel(-5.0,-100.0,100.0,0.1))
+//        xMax = JSpinner(SpinnerNumberModel(5.0,-100.0,100.0,0.1))
+//        yMin = JSpinner(SpinnerNumberModel(-5.0,-100.0,100.0,0.1))
+//        yMax = JSpinner(SpinnerNumberModel(5.0,-100.0,100.0,0.1))
+        xMin.addChangeListener{
             plane.xMin=xMin.value.toString().toDouble()
+            xMinMod.maximum=xMaxMod.value.toString().toDouble()-1.0
+            xMaxMod.minimum=xMinMod.value.toString().toDouble()+1.0
             mainPanel.repaint()
         }
-        xMax.addChangeListener(){
+        xMax.addChangeListener{
             plane.xMax=xMax.value.toString().toDouble()
+            xMinMod.maximum=xMaxMod.value.toString().toDouble()-1.0
+            xMaxMod.minimum=xMinMod.value.toString().toDouble()+1.0
             mainPanel.repaint()
         }
-        yMin.addChangeListener(){
+        yMin.addChangeListener{
             plane.yMin=yMin.value.toString().toDouble()
+            yMinMod.maximum=yMaxMod.value.toString().toDouble()-1.0
+            yMaxMod.minimum=yMinMod.value.toString().toDouble()+1.0
             mainPanel.repaint()
         }
-        yMax.addChangeListener() {
+        yMax.addChangeListener {
             plane.yMax = yMax.value.toString().toDouble()
+            yMinMod.maximum=yMaxMod.value.toString().toDouble()-1.0
+            yMaxMod.minimum=yMinMod.value.toString().toDouble()+1.0
             mainPanel.repaint()
         }
         mainPanel.addMouseListener(
